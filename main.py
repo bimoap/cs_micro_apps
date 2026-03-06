@@ -1,8 +1,8 @@
 import streamlit as st
 
 # Define your pages
-app_1 = st.Page("apps/coil_calculator.py", title="Coil Calculator", icon="⚡")
-app_2 = st.Page("apps/magnetic_field_sim.py", title="Magnetic Field Sim", icon="🧲")
+app_1 = st.Page("apps/coil_calculator.py", title="Coil Calculator", icon="🖩")
+app_2 = st.Page("apps/magnetic_field_sim.py", title="Magnetic Field Sim", icon="🖩")
 
 # Group them into a navigation menu
 pg = st.navigation([app_1, app_2])
