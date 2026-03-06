@@ -3,7 +3,7 @@ import streamlit as st
 def calculate_ratios():
     st.set_page_config(page_title="Epoxy Ratio Calculator", page_icon="🧪")
     
-    st.title("🧪 Epoxy Mix Calculator")
+    st.title(":material/blender: Epoxy Mix Calculator")
     st.write("Select the epoxy type and target total weight to get the required parts.")
 
     # 1. Define the Epoxy Data
