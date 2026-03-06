@@ -1,7 +1,7 @@
 import streamlit as st
 
 # Define your pages
-app_1 = st.Page("apps/cs_resistance_calc.py", title="Coil Resistance Calculator", icon="🔢")
+app_1 = st.Page("apps/cs_resistance_calc.py", title="Coil Resistance Calculator", icon=":material/calculate:")
 app_2 = st.Page("apps/mid_winding_check.py", title="Pre & Mid Winding Checker", icon="🔢")
 app_3 = st.Page("apps/coil_core_temp.py", title="Coil Core Temperature", icon="🔢")
 app_4 = st.Page("apps/epoxy_calc.py", title="Epoxy Calculator", icon="🔢")
