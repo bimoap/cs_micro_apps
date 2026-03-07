@@ -75,21 +75,23 @@ for i in range(coil_info["pancakes"]):
     
     c1, c2 = st.columns(2)
     with c1:
+        # Changed format to 6 decimal places and step size to 0.000001
         meas_r = st.number_input(
             f"Pancake {i+1} Measured R (Ω)", 
-            min_value=0.0000000, 
+            min_value=0.000000, 
             value=float(default_nominal), 
-            step=0.0000100, 
-            format="%.7f", 
+            step=0.000001, 
+            format="%.6f", 
             key=f"{selected_coil}_meas_{i}" 
         )
     with c2:
+        # Changed format to 6 decimal places and step size to 0.000001
         nom_r = st.number_input(
             f"Pancake {i+1} Nominal R20 (Ω)", 
-            min_value=0.0000000, 
+            min_value=0.000000, 
             value=float(default_nominal), 
-            step=0.0000100, 
-            format="%.7f", 
+            step=0.000001, 
+            format="%.6f", 
             key=f"{selected_coil}_nom_{i}"
         )
         
@@ -113,7 +115,8 @@ if st.button("Calculate R20 Results", type="primary"):
         st.markdown(f"**Pancake {i+1} Analysis**")
         res_col, dev_col = st.columns(2)
         
-        res_col.metric(label="Calculated R20", value=f"{r20:.7f} Ω")
+        # Output result changed to 6 decimal places
+        res_col.metric(label="Calculated R20", value=f"{r20:.6f} Ω")
         
         if lower_tolerance <= deviation <= upper_tolerance:
             dev_col.metric(label="Deviation", value=f"{deviation:.5f} %", delta="Pass", delta_color="normal")
@@ -135,7 +138,8 @@ if st.button("Calculate R20 Results", type="primary"):
         
         tot_res_col, tot_dev_col = st.columns(2)
         
-        tot_res_col.metric(label="Total Calculated R20", value=f"{total_r20:.7f} Ω")
+        # Output result changed to 6 decimal places
+        tot_res_col.metric(label="Total Calculated R20", value=f"{total_r20:.6f} Ω")
         
         if lower_tolerance <= total_deviation <= upper_tolerance:
             tot_dev_col.metric(label="Total Deviation", value=f"{total_deviation:.5f} %", delta="Pass", delta_color="normal")
