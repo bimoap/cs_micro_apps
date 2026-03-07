@@ -8,8 +8,8 @@ def reset_values():
     st.session_state.part_amount = 100.0
 
 def calculate_ratios():
-    # Updated icon here for the browser tab
-    st.set_page_config(page_title="Epoxy Ratio Calculator", page_icon=":material/blender:")
+    # Using standard emoji to ensure compatibility with all Streamlit versions
+    st.set_page_config(page_title="Epoxy Ratio Calculator", page_icon="🧪")
     
     # Initialize session state variables if they don't exist yet
     if "total_amount" not in st.session_state:
@@ -17,8 +17,8 @@ def calculate_ratios():
     if "part_amount" not in st.session_state:
         st.session_state.part_amount = 100.0
 
-    # Updated icon here for the main page header
-    st.title("Epoxy Mix Calculator", icon=":material/blender:")
+    # Removed the 'icon=' parameter here to prevent the version crash
+    st.title("🧪 Epoxy Mix Calculator")
     
     # Layout for instructions and the reset button
     col_text, col_btn = st.columns([4, 1])
