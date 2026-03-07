@@ -9,7 +9,7 @@ def reset_values():
 
 def calculate_ratios():
     # Using standard emoji to ensure compatibility with all Streamlit versions
-    st.set_page_config(page_title="Epoxy Ratio Calculator", page_icon="🧪")
+    st.set_page_config(page_title="Epoxy Ratio Calculator", page_icon=":material/blender:")
     
     # Initialize session state variables if they don't exist yet
     if "total_amount" not in st.session_state:
