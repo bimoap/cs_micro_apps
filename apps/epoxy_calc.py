@@ -25,6 +25,10 @@ def calculate_ratios():
         "24 hour epoxy": {
             "Part A, Araldite F": 2,
             "Part B, Hardener Aradur 2964": 1
+        },
+        "Araldite Kit K106 (by weight)": {
+            "Part A": 100,
+            "Part B": 80
         }
     }
 
