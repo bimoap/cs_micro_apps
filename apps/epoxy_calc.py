@@ -1,10 +1,31 @@
 import streamlit as st
+import pandas as pd
+import plotly.express as px
+
+# Callback function to reset the input fields
+def reset_values():
+    st.session_state.total_amount = 100.0
+    st.session_state.part_amount = 100.0
 
 def calculate_ratios():
-    st.set_page_config(page_title="Epoxy Ratio Calculator", page_icon="🧪")
+    # Updated icon here for the browser tab
+    st.set_page_config(page_title="Epoxy Ratio Calculator", page_icon=":material/blender:")
     
-    st.title("🧪 Epoxy Mix Calculator")
-    st.write("Select the epoxy type and your calculation method.")
+    # Initialize session state variables if they don't exist yet
+    if "total_amount" not in st.session_state:
+        st.session_state.total_amount = 100.0
+    if "part_amount" not in st.session_state:
+        st.session_state.part_amount = 100.0
+
+    # Updated icon here for the main page header
+    st.title("Epoxy Mix Calculator", icon=":material/blender:")
+    
+    # Layout for instructions and the reset button
+    col_text, col_btn = st.columns([4, 1])
+    with col_text:
+        st.write("Select the epoxy type and your calculation method.")
+    with col_btn:
+        st.button("🔄 Reset Inputs", on_click=reset_values)
 
     # 1. Define the Epoxy Data
     epoxy_data = {
@@ -50,10 +71,10 @@ def calculate_ratios():
     valid_input = False
 
     if calc_mode == "By Total Amount":
-        total_amount = st.number_input("Total desired amount:", min_value=0.0, value=100.0, step=10.0)
+        total_amount = st.number_input("Total desired amount:", min_value=0.0, step=10.0, key="total_amount")
+        
         if total_amount > 0:
             valid_input = True
-            # Find the multiplier based on the total target
             multiplier = total_amount / total_parts_ratio
             calculated_total = total_amount
             
@@ -65,11 +86,10 @@ def calculate_ratios():
         with col1:
             part_choice = st.selectbox("Which part do you have?", list(selected_mix.keys()))
         with col2:
-            part_amount = st.number_input(f"Amount of {part_choice}:", min_value=0.0, value=100.0, step=10.0)
+            part_amount = st.number_input(f"Amount of {part_choice}:", min_value=0.0, step=10.0, key="part_amount")
         
         if part_amount > 0:
             valid_input = True
-            # Find the multiplier based on the chosen part's base ratio
             part_ratio = selected_mix[part_choice]
             multiplier = part_amount / part_ratio
             calculated_total = total_parts_ratio * multiplier
@@ -82,18 +102,40 @@ def calculate_ratios():
         st.subheader(f"Results for {option}")
         st.info(f"Calculated Total: **{calculated_total:.4f}**")
 
-        # Create dynamic columns based on the number of parts
+        # Top metric row
         cols = st.columns(len(selected_mix))
-        
         for i, (part_name, amount) in enumerate(results.items()):
-            # Keep higher precision for the accelerator due to the tiny ratio
             precision = 4 if "Accelerator" in part_name else 2
             with cols[i % len(cols)]:
                 st.metric(label=part_name, value=f"{amount:.{precision}f}")
 
-        st.write("### Detailed Breakdown")
-        breakdown = {part: f"{amount:.4f}" for part, amount in results.items()}
-        st.table(breakdown.items())
+        st.divider()
+
+        # Bottom row: Table and Chart side-by-side
+        col_table, col_chart = st.columns([1, 1.5])
+        
+        with col_table:
+            st.write("### Detailed Breakdown")
+            breakdown = {part: f"{amount:.4f}" for part, amount in results.items()}
+            st.table(breakdown.items())
+            
+        with col_chart:
+            # Create a dataframe for the chart
+            df = pd.DataFrame({
+                "Part": list(results.keys()),
+                "Amount": list(results.values())
+            })
+            
+            # Generate a donut chart
+            fig = px.pie(
+                df, 
+                names="Part", 
+                values="Amount", 
+                hole=0.4,
+                title=f"Mix Proportions"
+            )
+            fig.update_traces(textposition='inside', textinfo='percent+label')
+            st.plotly_chart(fig, use_container_width=True)
         
     else:
         st.warning("Please enter an amount greater than 0 to see the breakdown.")
