@@ -18,7 +18,7 @@ def calculate_ratios():
         st.session_state.part_amount = 100.0
 
     # Removed the 'icon=' parameter here to prevent the version crash
-    st.title("🧪 Epoxy Mix Calculator")
+    st.title(":material/calculate: Epoxy Mix Calculator")
     
     # Layout for instructions and the reset button
     col_text, col_btn = st.columns([4, 1])
