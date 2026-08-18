@@ -1,9 +1,8 @@
 import streamlit as st
 
 def calculate_core_temperature(t_start: float, r_start: float, r_final: float) -> float:
-    """Calculates the core temperature of an electromagnet coil."""
-    alpha = 0.00393 # Temperature coefficient for copper
-    temperature_rise = (r_final - r_start) / (alpha * r_start)
+    """Calculates the core temperature of an electromagnet coil using the 254.5 constant."""
+    temperature_rise = ((r_final - r_start) / r_start) * 254.5
     return t_start + temperature_rise
 
 # Set up the web page layout and title
@@ -13,7 +12,7 @@ st.markdown("Enter your measurements below to calculate the internal core temper
 
 # Display the formula being used for reference
 with st.expander("View Calculation Formula"):
-    st.latex(r"T_{core} = T_{start} + \frac{R_{final} - R_{start}}{0.00393 \cdot R_{start}}")
+    st.latex(r"T_{core} = T_{start} + \left( \frac{R_{final} - R_{start}}{R_{start}} \right) \times 254.5")
 
 st.divider()
 
@@ -24,10 +23,8 @@ with st.form("calc_form"):
     with col1:
         t_start = st.number_input("Start Temp (°C)", value=20.0, step=0.5, format="%.1f")
     with col2:
-        # Updated to display and increment at 6 decimal places
         r_start = st.number_input("Start Resistance (Ω)", value=1.000000, step=0.000001, format="%.6f")
     with col3:
-        # Updated to display and increment at 6 decimal places
         r_final = st.number_input("Final Resistance (Ω)", value=1.200000, step=0.000001, format="%.6f")
         
     # The submit button triggers the calculation
