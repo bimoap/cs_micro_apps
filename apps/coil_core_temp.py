@@ -10,10 +10,6 @@ st.set_page_config(page_title="Coil Temperature Calculator", layout="centered")
 st.title("Coil Core Temperature Calculator")
 st.markdown("Enter your measurements below to calculate the internal core temperature of the coil.")
 
-# Display the formula being used for reference
-with st.expander("View Calculation Formula"):
-    st.latex(r"T_{core} = T_{start} + \left( \frac{R_{final} - R_{start}}{R_{start}} \right) \times 254.5")
-
 st.divider()
 
 # Create a form so the app doesn't recalculate on every single keystroke
@@ -48,3 +44,13 @@ if submitted:
             delta=f"{temp_rise:.2f} °C (Temperature Rise)",
             delta_color="off" # Keeps the delta text gray instead of red/green
         )
+
+# Signature Section
+st.markdown("""
+---
+<div style="text-align: center; color: gray; font-size: 0.9em;">
+    App developed & maintained by:<br>
+    <strong>Bimo Adhi Prastya</strong><br>
+    Coil Shop Production Staff
+</div>
+""", unsafe_allow_html=True)
