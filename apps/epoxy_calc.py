@@ -140,5 +140,13 @@ def calculate_ratios():
     else:
         st.warning("Please enter an amount greater than 0 to see the breakdown.")
 
+    # 5. Footer Signature
+    st.divider()
+    st.caption("""
+    **App developed & maintained by:**  
+    Bimo Adhi Prastya  
+    Coil Shop Production Staff
+    """)
+
 if __name__ == "__main__":
     calculate_ratios()
