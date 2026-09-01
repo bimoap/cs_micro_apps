@@ -57,7 +57,7 @@ def calculate_ratios():
     option = st.selectbox("Choose Epoxy Mix:", list(epoxy_data.keys()))
     selected_mix = epoxy_data[option]
     
-    # --- NEW: Display the ratio compared to the resin ---
+    # --- Ratio Display (Normalized to Resin) ---
     # We assume the first item in the dictionary is always the Resin (Part A)
     resin_key = list(selected_mix.keys())[0]
     resin_val = selected_mix[resin_key]
@@ -66,12 +66,18 @@ def calculate_ratios():
     for part, val in selected_mix.items():
         # Normalize the value so the resin is always 1
         normalized_ratio = val / resin_val
+        
+        # Format to 6 decimal places, then strip trailing zeros and the decimal point if it's a whole number
+        formatted_ratio = f"{normalized_ratio:.6f}".rstrip('0').rstrip('.')
+        if formatted_ratio == "":
+            formatted_ratio = "0"
+            
         # Shorten the name for a cleaner display (e.g., "Part A" instead of "Part A, Araldite F")
         short_name = part.split(',')[0] if ',' in part else part
-        ratio_parts.append(f"{normalized_ratio:g} {short_name}")
+        ratio_parts.append(f"{formatted_ratio} {short_name}")
         
     st.info(f"**Ratio (Compared to {short_name.split()[0]} Resin):**  \n{' : '.join(ratio_parts)}")
-    # ----------------------------------------------------
+    # -------------------------------------------
 
     calc_mode = st.radio(
         "How do you want to calculate the mix?",
@@ -161,7 +167,7 @@ def calculate_ratios():
     st.caption("""
     **App developed & maintained by:**  
     Bimo Adhi Prastya  
-    Coil Shop Technician
+    Coil Shop Technician & NT Production Engineer
     """)
 
 if __name__ == "__main__":
