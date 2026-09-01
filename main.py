@@ -19,7 +19,7 @@ st.sidebar.markdown(
     """
     **App developed & maintained by:**  
     Bimo Adhi Prastya  
-    Coil Shop Technician
+    Coil Shop Technician & NT Production Engineer
     """
 )
 
