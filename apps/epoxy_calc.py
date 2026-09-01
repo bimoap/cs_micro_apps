@@ -57,6 +57,22 @@ def calculate_ratios():
     option = st.selectbox("Choose Epoxy Mix:", list(epoxy_data.keys()))
     selected_mix = epoxy_data[option]
     
+    # --- NEW: Display the ratio compared to the resin ---
+    # We assume the first item in the dictionary is always the Resin (Part A)
+    resin_key = list(selected_mix.keys())[0]
+    resin_val = selected_mix[resin_key]
+    
+    ratio_parts = []
+    for part, val in selected_mix.items():
+        # Normalize the value so the resin is always 1
+        normalized_ratio = val / resin_val
+        # Shorten the name for a cleaner display (e.g., "Part A" instead of "Part A, Araldite F")
+        short_name = part.split(',')[0] if ',' in part else part
+        ratio_parts.append(f"{normalized_ratio:g} {short_name}")
+        
+    st.info(f"**Ratio (Compared to {short_name.split()[0]} Resin):**  \n{' : '.join(ratio_parts)}")
+    # ----------------------------------------------------
+
     calc_mode = st.radio(
         "How do you want to calculate the mix?",
         ["By Total Amount", "By a Specific Part"]
@@ -100,12 +116,12 @@ def calculate_ratios():
     # 4. Display Results
     if valid_input:
         st.subheader(f"Results for {option}")
-        st.info(f"Calculated Total: **{calculated_total:.4f}**")
+        st.success(f"Calculated Total: **{calculated_total:.4f}**")
 
         # Top metric row
         cols = st.columns(len(selected_mix))
         for i, (part_name, amount) in enumerate(results.items()):
-            precision = 4 if "Accelerator" in part_name else 2
+            precision = 4 if "Accelerator" in part_name or "DY061" in part_name else 2
             with cols[i % len(cols)]:
                 st.metric(label=part_name, value=f"{amount:.{precision}f}")
 
