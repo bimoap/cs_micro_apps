@@ -145,7 +145,7 @@ def calculate_ratios():
     st.caption("""
     **App developed & maintained by:**  
     Bimo Adhi Prastya  
-    Coil Shop Production Staff
+    Coil Shop Technician
     """)
 
 if __name__ == "__main__":
