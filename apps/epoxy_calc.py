@@ -127,7 +127,7 @@ def calculate_ratios():
         # Top metric row
         cols = st.columns(len(selected_mix))
         for i, (part_name, amount) in enumerate(results.items()):
-            precision = 4 if "Accelerator" in part_name or "DY061" in part_name else 2
+            precision = 1 if "Accelerator" in part_name or "DY061" in part_name else 2
             with cols[i % len(cols)]:
                 st.metric(label=part_name, value=f"{amount:.{precision}f}")
 
