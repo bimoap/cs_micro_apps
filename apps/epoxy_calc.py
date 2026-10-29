@@ -33,7 +33,7 @@ def calculate_ratios():
             "Part A, Araldite F": 100,
             "Part B, HY 905 Aradur": 90,
             "Part C, Plasticizer DY040": 20,
-            "Part D, Accelerator DY061": 0.0044
+            "Part D, Accelerator DY061": 0.44
         },
         "ADR ADH Epoxy": {
             "Part A, ADR270": 4,
